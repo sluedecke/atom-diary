@@ -8,7 +8,11 @@ for the relevant month, it will be created.
 
 ## TODO items
 
+* enable users to choose and set language for diary files
+* expand on ~/ in baseDir configuration
+
+## DONE items
+
 * hardcoded '/home/saschal/.diary/atom' in configuration +
   This should be something like $HOME/... or ~/
 * Path logic uses platform specific path separator
-* enable users to choose and set language for diary files

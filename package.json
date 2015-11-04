@@ -1,7 +1,7 @@
 {
   "name": "atom-diary",
   "main": "./lib/atom-diary",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Add Asciidoc based entries to month based diary files.",
   "keywords": [
     "diary",
@@ -11,7 +11,7 @@
     "atom-workspace": "atom-diary:add_entry"
   },
   "repository": "sluedecke/atom-diary",
-  "license": "APL 2.0",
+  "license": "Apache-2.0",
   "engines": {
     "atom": ">=1.0.0 <2.0.0"
   },
