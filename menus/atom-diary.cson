@@ -1,11 +1,4 @@
 # See https://atom.io/docs/latest/hacking-atom-package-word-count#menus for more details
-# 'context-menu':
-#   'atom-text-editor': [
-#     {
-#       'label': 'Add a diary entry'
-#       'command': 'atom-diary:add_entry'
-#     }
-#   ]
 'menu': [
   {
     'label': 'Packages'

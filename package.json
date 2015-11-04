@@ -2,10 +2,11 @@
   "name": "atom-diary",
   "main": "./lib/atom-diary",
   "version": "0.2.0",
-  "description": "Add Asciidoc based entries to month based diary files.",
+  "description": "Add markup language (Asciidoc or Markdown) based entries to month based diary files.",
   "keywords": [
     "diary",
-    "asciidoc"
+    "asciidoc",
+    "markdown"
   ],
   "activationCommands": {
     "atom-workspace": "atom-diary:add_entry"
