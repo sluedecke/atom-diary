@@ -1,7 +1,25 @@
 {CompositeDisposable} = require 'atom'
+{Directory} = require 'atom'
+mkdirp = require 'mkdirp'
+moment = require 'moment'
 
 module.exports = AtomDiary =
   subscriptions: null
+
+  config:
+    basedir:
+      title: 'Directory for your diary files'
+      description: 'atom-diary will generate new diary files here and open them as needed.'
+      type: 'string'
+      default: '/home/saschal/.diary/atom'
+    filePrefix:
+      title: 'Prefix of diary files, translates to "prefix-2015-11.extension"'
+      type: 'string'
+      default: 'diary'
+    fileExtension:
+      title: 'Extension of diary files, e.g. adoc for Asciidoc'
+      type: 'string'
+      default: 'adoc'
 
   activate: (state) ->
     @subscriptions = new CompositeDisposable
@@ -12,10 +30,44 @@ module.exports = AtomDiary =
 
   serialize: ->
 
-  add_entry: ->
-    console.log 'AtomDiary::add_entry was called!'
+  fileHeader: (title) ->
+    """
+    = #{title}
+    :toc:
+    :numbered!:
 
+    """
+
+  entryHeader: (title) ->
+    """
+
+    == #{title}
+
+
+    """
+
+  add_entry: ->
     # determine current date in terms of year, month, day
+    # getCreate basedir
+    baseDir = atom.config.get('atom-diary.basedir')
+    myDir = new Directory(baseDir)
+    mkdirp.sync(myDir.getRealPathSync())
+
     # getCreate month file
-    # append entry for now
-    # open file
+    now = moment()
+    dayString = now.format('YYYY-MM')
+    fileName = atom.config.get('atom-diary.filePrefix') + '-' + dayString + '.' + atom.config.get('atom-diary.fileExtension')
+    console.log 'filename will be ' + fileName
+    currentHeader = @fileHeader(now.format('MMMM YYYY'))
+    currentEntry = @entryHeader(now.format('DD. MMMM, LT, dddd'))
+    console.log 'header will be like ' + currentHeader
+    console.log 'entry will be like ' + currentEntry
+
+    # open new file in atom
+    atom.workspace.open(baseDir + '/' + fileName, null).then ->
+      editor = atom.workspace.getActiveTextEditor()
+      editor.moveToBottom()
+      # if the file is empty, insert boilerplate
+      if (editor.getText().length is 0)
+        editor.insertText(currentHeader)
+      editor.insertText(currentEntry)

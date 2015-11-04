@@ -4,15 +4,19 @@
   "version": "0.0.0",
   "description": "Add Asciidoc based entries to month based diary files.",
   "keywords": [
+    "diary",
+    "asciidoc"
   ],
   "activationCommands": {
     "atom-workspace": "atom-diary:add_entry"
   },
-  "repository": "https://github.com/sluedecke/atom-diary.git",
+  "repository": "sluedecke/atom-diary",
   "license": "APL 2.0",
   "engines": {
     "atom": ">=1.0.0 <2.0.0"
   },
   "dependencies": {
+    "mkdirp": ">=0.3.5",
+    "moment": "^2.10.6"
   }
 }
