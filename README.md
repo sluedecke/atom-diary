@@ -22,17 +22,20 @@ You might want to install the [Asciidoctor preview package for Atom](https://ato
 
 ### Major features
 
+1. Add a calendar view
+  * [DONE] add calendar view
+  * add close button to calendar view
+  * add navigation to calendar view
+  * highlight dates with entries
 * Make diary printable
   * include meta Asciidoc/Markdown files to create a printable diary using include::\*[]
 * Make diary manageable
   * Add command to open diary basedir as a project with own tree-view, probably integrate with [project-manager](https://atom.io/packages/project-manager)
-  * add calendar view which highlights date with entries and allows for easy browsing, consider [node-calendar](https://www.npmjs.com/package/node-calendar)
   * add sorting and other cleanup routines
 
 ### Minor features
 
 * can we make use of services to communicate between atom windows?
 * expand on ~/ and $HOME in baseDir configuration
-* add option to open diary file as a new project based on baseDir (which is default)
 * Improve markup support by using file templates
 * Review licensing and consider switch to MIT License

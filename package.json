@@ -2,7 +2,7 @@
   "name": "atom-diary",
   "main": "./lib/atom-diary",
   "version": "0.3.0",
-  "description": "Creates diary entries in a markup language (Asciidoc or Markdown) and stores them in month based files.",
+  "description": "Keep a diary with entries in a markup language (Asciidoc or Markdown).",
   "keywords": [
     "diary",
     "asciidoc",

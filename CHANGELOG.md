@@ -1,4 +1,7 @@
 ## 0.4.0 IN PROGRESS
+* Added simple calendar view showing three months (not yet functional)
+* Added opening the diary basedir as a project (nothing else yet)
+* Reorganized TODOs in README.md
 
 ## 0.3.0 - Make it accessible
 * Added support for Markdown
