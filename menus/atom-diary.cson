@@ -1,3 +1,4 @@
+# coffeelint: disable=max_line_length
 # See https://atom.io/docs/latest/hacking-atom-package-word-count#menus for more details
 'menu': [
   {
@@ -7,8 +8,21 @@
       'submenu': [
         {
           'label': 'Add an entry'
-          'command': 'atom-diary:add_entry'
-        }
+          'command': 'atom-diary:addEntry'
+        },
+        {type: 'separator'},
+        {
+          'label': 'Diary as project'
+          'command': 'atom-diary:showProject'
+        },
+        {
+          'label': 'Show calendar'
+          'command': 'atom-diary:toggleCalendar'
+        },
+        {
+          'label': 'Update calendar'
+          'command': 'atom-diary:updateCalendar'
+        },
       ]
     ]
   }

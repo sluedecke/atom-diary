@@ -2,14 +2,19 @@
   "name": "atom-diary",
   "main": "./lib/atom-diary",
   "version": "0.3.0",
-  "description": "Add markup language (Asciidoc or Markdown) based entries to month based diary files.",
+  "description": "Creates diary entries in a markup language (Asciidoc or Markdown) and stores them in month based files.",
   "keywords": [
     "diary",
     "asciidoc",
     "markdown"
   ],
   "activationCommands": {
-    "atom-workspace": "atom-diary:add_entry"
+    "atom-workspace": [
+      "atom-diary:addEntry",
+      "atom-diary:showProject",
+      "atom-diary:toggleCalendar",
+      "atom-diary:updateCalendar"
+    ]
   },
   "repository": "sluedecke/atom-diary",
   "license": "Apache-2.0",

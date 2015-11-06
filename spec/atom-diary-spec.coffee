@@ -12,7 +12,7 @@ describe "AtomDiary", ->
     workspaceElement = atom.views.getView(atom.workspace)
     activationPromise = atom.packages.activatePackage('atom-diary')
 
-  describe "when the atom-diary:add_entry event is triggered", ->
+  describe "when the atom-diary:addEntry event is triggered", ->
     it "hides and shows the modal panel", ->
       # Before the activation event the view is not on the DOM, and no panel
       # has been created
@@ -20,7 +20,7 @@ describe "AtomDiary", ->
 
       # This is an activation event, triggering it will cause the package to be
       # activated.
-      atom.commands.dispatch workspaceElement, 'atom-diary:add_entry'
+      atom.commands.dispatch workspaceElement, 'atom-diary:addEntry'
 
       waitsForPromise ->
         activationPromise
@@ -33,7 +33,7 @@ describe "AtomDiary", ->
 
         atomDiaryPanel = atom.workspace.panelForItem(atomDiaryElement)
         expect(atomDiaryPanel.isVisible()).toBe true
-        atom.commands.dispatch workspaceElement, 'atom-diary:add_entry'
+        atom.commands.dispatch workspaceElement, 'atom-diary:addEntry'
         expect(atomDiaryPanel.isVisible()).toBe false
 
     it "hides and shows the view", ->
@@ -49,7 +49,7 @@ describe "AtomDiary", ->
 
       # This is an activation event, triggering it causes the package to be
       # activated.
-      atom.commands.dispatch workspaceElement, 'atom-diary:add_entry'
+      atom.commands.dispatch workspaceElement, 'atom-diary:addEntry'
 
       waitsForPromise ->
         activationPromise
@@ -58,5 +58,5 @@ describe "AtomDiary", ->
         # Now we can test for view visibility
         atomDiaryElement = workspaceElement.querySelector('.atom-diary')
         expect(atomDiaryElement).toBeVisible()
-        atom.commands.dispatch workspaceElement, 'atom-diary:add_entry'
+        atom.commands.dispatch workspaceElement, 'atom-diary:addEntry'
         expect(atomDiaryElement).not.toBeVisible()

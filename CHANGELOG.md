@@ -1,3 +1,5 @@
+## 0.4.0 IN PROGRESS
+
 ## 0.3.0 - Make it accessible
 * Added support for Markdown
 * Remove configuration option for file extensions
