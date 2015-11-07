@@ -13,7 +13,8 @@ module.exports = AtomDiary =
   myCalendarPanel: null
   markups: {
     'Asciidoc' : {
-      'ext': 'adoc',
+      'ext': 'adoc'
+      'regex': new RegExp("== ([0-9]+)", 'g')
       'fileHeader':
         """
         = {0}
@@ -30,7 +31,8 @@ module.exports = AtomDiary =
         """
       },
     'Markdown' : {
-      'ext' : 'md',
+      'ext' : 'md'
+      'regex': new RegExp("## ([0-9]+)", 'g')
       'fileHeader':
         """
         # {0}
@@ -138,10 +140,9 @@ module.exports = AtomDiary =
     myMarkup = atom.config.get('atom-diary.markupLanguage')
 
     #
-    # getCreate basedir
+    # getCreate monthDir
     #
     dirs = @getCreateDirectories(now)
-    baseDir = dirs[0]
     monthDir = dirs[1]
 
     #

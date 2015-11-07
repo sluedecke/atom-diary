@@ -15,6 +15,7 @@ You might want to install the [Asciidoctor preview package for Atom](https://ato
 ![](screenshot.png)
 
 * Creates month based Asciidoc or Markdown files for diaries
+* Includes three month calendar view, days with entries are highlighted
 * User can set a language for the diary files different from the system language
 * Automatically creates the diary base directory and one sub-directory per year
 
@@ -24,9 +25,10 @@ You might want to install the [Asciidoctor preview package for Atom](https://ato
 
 1. Add a calendar view
   * [DONE] add calendar view
+  * [DONE] highlight dates with entries
   * add close button to calendar view
   * add navigation to calendar view
-  * highlight dates with entries
+  * make useful for light and dark themes
 * Make diary printable
   * include meta Asciidoc/Markdown files to create a printable diary using include::\*[]
 * Make diary manageable

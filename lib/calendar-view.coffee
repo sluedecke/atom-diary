@@ -1,9 +1,11 @@
 # coffeelint: disable=max_line_length
 
 moment = require 'moment'
+cal = require './calendar-lib'
 
 module.exports =
 class CalendarView
+  dayMap = {}
   constructor: ->
     @element = document.createElement('div')
     m = document.createElement('label')
@@ -28,6 +30,13 @@ class CalendarView
     d.appendChild(table)
     tr = table.insertRow(-1)
     tr.setAttribute("valign", "top")
+    @dayMap = cal.getDays("/home/saschal/.diary/atom",
+      "diary",
+      "adoc",
+      now,
+      new RegExp("== ([0-9]+)", 'g')
+      )
+    console.log @dayMap
     @addMonth(tr.insertCell(-1), moment(now).subtract(1, 'months'))
     @addMonth(tr.insertCell(-1), moment(now))
     @addMonth(tr.insertCell(-1), moment(now).add(1, 'months'))
@@ -58,9 +67,15 @@ class CalendarView
     tr = t.insertRow(-1)
     myMonth = now.month()
     someMoment = moment(now).startOf('week')
+    year = now.format("YYYY")
+    month = now.format("MM")
     for i in [0...42] # iterate over 6 rows which is the max of possible rows
       if myMonth == someMoment.month()
-        @addCell(tr, someMoment.format("DD"), @getClasses(someMoment))
+        classes = @getClasses(someMoment)
+        day = someMoment.format("DD")
+        if @dayMap[year][month][day]
+          classes += " cal-has-entry"
+        @addCell(tr, day, classes)
       else
         @addCell(tr, "", "")
       if i % 7 == 6 then tr = t.insertRow(-1)
