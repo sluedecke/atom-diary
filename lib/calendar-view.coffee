@@ -6,7 +6,10 @@ cal = require './calendar-lib'
 module.exports =
 class CalendarView
   dayMap = {}
-  constructor: ->
+  main = null
+
+  constructor: (main) ->
+    @main = main
     @element = document.createElement('div')
     m = document.createElement('label')
     m.textContent = "Calendar View"
@@ -30,13 +33,11 @@ class CalendarView
     d.appendChild(table)
     tr = table.insertRow(-1)
     tr.setAttribute("valign", "top")
-    @dayMap = cal.getDays("/home/saschal/.diary/atom",
-      "diary",
-      "adoc",
-      now,
-      new RegExp("== ([0-9]+)", 'g')
-      )
-    console.log @dayMap
+    @dayMap = cal.getDays(
+      cal.absolutize(atom.config.get('atom-diary.baseDir')),
+      atom.config.get('atom-diary.filePrefix'),
+      atom.config.get('atom-diary.markupLanguage')
+      now)
     @addMonth(tr.insertCell(-1), moment(now).subtract(1, 'months'))
     @addMonth(tr.insertCell(-1), moment(now))
     @addMonth(tr.insertCell(-1), moment(now).add(1, 'months'))
@@ -60,7 +61,7 @@ class CalendarView
     tr = t.insertRow(-1)
     someMoment = moment(now).startOf('week')
     for i in [0...7]
-      @addCell(tr, someMoment.format("dd"), @getClasses(someMoment))
+      @addCell(tr, someMoment.format("dd"), @getClasses(someMoment, true))
       someMoment.add(1, 'day')
 
     # iterate over month and add rows with days
@@ -86,15 +87,39 @@ class CalendarView
     c = row.insertCell(-1)
     c.innerHTML = title
     c.className = clazz
+    c.addEventListener("click", @logEvent)
 
-  getClasses: (now) ->
+
+  ##
+  ## Internal routines to make life easier
+  ##
+
+  getClasses: (now, header) ->
     r = "cal-cell"
+    if !header
+      r+= " cal-day"
     if now.isoWeekday() > 5
       r += " cal-weekend"
     actual = moment()
     if now.year() == actual.year() and now.dayOfYear() == actual.dayOfYear()
       r += " cal-today"
     r
+
+  ##
+  ## Callbacks for click events
+  ##
+
+  toggleEvent: (e) ->
+    console.log e
+    if @main
+      @main.toggleCalendar()
+    else
+      console.log "main is not: #{main}"
+
+  logEvent: (e) ->
+    console.log e
+    console.log e.target.textContent
+
 
   ##
   ## Remaining lifecycle routines

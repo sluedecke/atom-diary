@@ -9,4 +9,4 @@
 # https://atom.io/docs/latest/behind-atom-keymaps-in-depth
 'atom-workspace':
   'ctrl-alt-e': 'atom-diary:addEntry'
-  'ctrl-shift-E': 'atom-diary:showProject'
+  'ctrl-shift-E': 'atom-diary:toggleCalendar'

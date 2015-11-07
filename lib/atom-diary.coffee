@@ -6,47 +6,12 @@ moment = require 'moment'
 path = require 'path'
 os = require 'os'
 CalendarView = require './calendar-view'
+cal = require './calendar-lib'
 
 module.exports = AtomDiary =
   subscriptions: null
   myCalendar: null
   myCalendarPanel: null
-  markups: {
-    'Asciidoc' : {
-      'ext': 'adoc'
-      'regex': new RegExp("== ([0-9]+)", 'g')
-      'fileHeader':
-        """
-        = {0}
-        :toc:
-        :numbered!:
-
-        """
-      'entryHeader':
-        """
-
-        == {0}
-
-
-        """
-      },
-    'Markdown' : {
-      'ext' : 'md'
-      'regex': new RegExp("## ([0-9]+)", 'g')
-      'fileHeader':
-        """
-        # {0}
-
-        """
-      'entryHeader':
-        """
-
-        ## {0}
-
-
-        """
-    }
-  }
 
   config:
     baseDir:
@@ -71,7 +36,7 @@ module.exports = AtomDiary =
       enum: ['Asciidoc', 'Markdown']
 
   activate: (state) ->
-    @myCalendar = new CalendarView(state.calendarViewState)
+    @myCalendar = new CalendarView(this)
     @myCalendarPanel = atom.workspace.addBottomPanel(item: @myCalendar.getElement(), visible: false)
     @subscriptions = new CompositeDisposable
     @subscriptions.add atom.commands.add 'atom-workspace', 'atom-diary:addEntry':  => @addEntry()
@@ -113,12 +78,7 @@ module.exports = AtomDiary =
 
   # now is a moment
   getCreateDirectories: (now) ->
-    baseDir = path.normalize(atom.config.get('atom-diary.baseDir'))
-    if !path.isAbsolute(baseDir)
-      baseDir = os.homedir() + path.sep + baseDir
-      console.log 'baseDir converted to absolute ' + baseDir
-    else
-      console.log 'baseDir already is absolute ' + baseDir
+    baseDir = cal.absolutize(atom.config.get('atom-diary.baseDir'))
     monthDir = baseDir + path.sep + now.format('YYYY')
     myDir = new Directory(monthDir)
     mkdirp.sync(myDir.getRealPathSync())
@@ -149,10 +109,10 @@ module.exports = AtomDiary =
     # getCreate month file
     #
     dayString = now.format('YYYY-MM')
-    monthFileName = monthDir + path.sep + atom.config.get('atom-diary.filePrefix') + '-' + dayString + '.' + @markups[myMarkup]['ext']
+    monthFileName = monthDir + path.sep + atom.config.get('atom-diary.filePrefix') + '-' + dayString + '.' + cal.markups[myMarkup].ext
     console.log 'monthFileName will be ' + monthFileName
-    currentHeader = (@markups[myMarkup]['fileHeader']).format [now.format('MMMM YYYY')]
-    currentEntry = (@markups[myMarkup]['entryHeader']).format [now.format('DD. MMMM, LT, dddd')]
+    currentHeader = cal.markups[myMarkup].fileHeader.format [now.format('MMMM YYYY')]
+    currentEntry = cal.markups[myMarkup].entryHeader.format [now.format('DD. MMMM, LT, dddd')]
 
     #
     # open new file in atom
