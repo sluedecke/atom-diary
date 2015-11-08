@@ -11,30 +11,49 @@ class CalendarView
   constructor: (main) ->
     @main = main
     @element = document.createElement('div')
+
+    #
+    # calendar header and close button
+    #
+    titleBar = document.createElement('div')
+    titleBar.className = 'calendar-titlebar'
+    @element.appendChild(titleBar)
+
     m = document.createElement('label')
-    m.textContent = "Calendar View"
-    m.id = "calendar-title"
-    @element.appendChild(m)
+    m.textContent = "Diary Calendar View"
+    m.className = "calendar-title"
+    titleBar.appendChild(m)
+
+    m = document.createElement('label')
+    m.textContent = "X"
+    m.className = "calendar-close"
+    m.addEventListener('click', @toggleEvent)
+    m.main = @main
+    titleBar.appendChild(m)
+
+    #
+    # main calendar content, dummy element will be replaced by update()
+    #
     d = document.createElement('div')
-    d.id = 'calendar-content'
+    d.className = 'calendar-content'
     @element.appendChild(d)
+
 
   update: (now) ->
     @element.removeChild(@element.lastChild)
     d = document.createElement('div')
+    d.className = 'calendar-content'
     @element.appendChild(d)
 
-    t = document.createElement('label')
-    t.textContent = "Now: " + now.toString()
-    d.appendChild(t)
-
-    # for last, this and next month, add children
+    #
+    # add day tables for last, this and next month
+    #
     table = document.createElement('table')
     d.appendChild(table)
     tr = table.insertRow(-1)
     tr.setAttribute("valign", "top")
     @dayMap = cal.getDays(
-      cal.absolutize(atom.config.get('atom-diary.baseDir')),
+      atom.config.get('atom-diary.baseDir'),
       atom.config.get('atom-diary.filePrefix'),
       atom.config.get('atom-diary.markupLanguage')
       now)
@@ -50,44 +69,60 @@ class CalendarView
     t.className = "cal-monthtable"
     root.appendChild(t)
 
-    # add month name
+    #
+    # add month name as a header spanning all columns
+    #
     tr = t.insertRow(-1)
     tc = tr.insertCell(-1)
     tc.innerHTML = now.format("MMMM YYYY")
     tc.setAttribute("colspan", "7")
     tc.className = "cal-header"
 
-    # add weekday names
+    #
+    # add weekday names as 'headers' for the days
+    #
     tr = t.insertRow(-1)
     someMoment = moment(now).startOf('week')
     for i in [0...7]
       @addCell(tr, someMoment.format("dd"), @getClasses(someMoment, true))
       someMoment.add(1, 'day')
 
+    #
     # iterate over month and add rows with days
+    #
     tr = t.insertRow(-1)
     myMonth = now.month()
     someMoment = moment(now).startOf('week')
     year = now.format("YYYY")
     month = now.format("MM")
+    console.log "daymap is " + @dayMap
     for i in [0...42] # iterate over 6 rows which is the max of possible rows
+      # ony cells from the month at hand shall have content
       if myMonth == someMoment.month()
         classes = @getClasses(someMoment)
         day = someMoment.format("DD")
         if @dayMap[year][month][day]
           classes += " cal-has-entry"
-        @addCell(tr, day, classes)
+        @addCell(tr, day, classes, year, month, @dayMap[year][month][day])
       else
-        @addCell(tr, "", "")
+        @addCell(tr)
       if i % 7 == 6 then tr = t.insertRow(-1)
       someMoment.add(1, 'day')
 
 
-  addCell: (row, title, clazz) ->
+  addCell: (row, title, clazz, year, month, position) ->
     c = row.insertCell(-1)
-    c.innerHTML = title
     c.className = clazz
-    c.addEventListener("click", @logEvent)
+    if title
+      c.innerHTML = title
+    else
+      c.innerHTML = ""
+    if position # day at cell has a diary entry
+      c.setAttribute('year', year)
+      c.setAttribute('month', month)
+      c.setAttribute('position', position)
+      c.addEventListener("click", @openFileEvent)
+    c.main = @main
 
 
   ##
@@ -101,7 +136,7 @@ class CalendarView
     if now.isoWeekday() > 5
       r += " cal-weekend"
     actual = moment()
-    if now.year() == actual.year() and now.dayOfYear() == actual.dayOfYear()
+    if now.isSame(actual, 'day')
       r += " cal-today"
     r
 
@@ -109,17 +144,15 @@ class CalendarView
   ## Callbacks for click events
   ##
 
+  # these are called on HTMLELement as this
+
   toggleEvent: (e) ->
-    console.log e
-    if @main
-      @main.toggleCalendar()
-    else
-      console.log "main is not: #{main}"
+    @main.toggleCalendar()
 
-  logEvent: (e) ->
-    console.log e
-    console.log e.target.textContent
-
+  openFileEvent: (e) ->
+    @main.openDiaryFile(e.target.attributes.year.value,
+      e.target.attributes.month.value,
+      e.target.attributes.position.value)
 
   ##
   ## Remaining lifecycle routines
@@ -127,6 +160,7 @@ class CalendarView
 
   # Tear down any state and detach
   destroy: ->
+    ## TODO remove event listeners?
     @element.remove()
 
   getElement: ->

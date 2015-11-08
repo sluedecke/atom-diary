@@ -26,8 +26,10 @@ You might want to install the [Asciidoctor preview package for Atom](https://ato
 1. Add a calendar view
   * [DONE] add calendar view
   * [DONE] highlight dates with entries
-  * add close button to calendar view
-  * add navigation to calendar view
+  * [DONE] do not change cursor when hovering over days
+  * [DONE] add close button to calendar view
+  * [IN PROGRESS] open file for a day when clicking on it
+  * add navigation to calendar view (switching months)
   * make useful for light and dark themes
 * Make diary printable
   * include meta Asciidoc/Markdown files to create a printable diary using include::\*[]

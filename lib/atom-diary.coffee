@@ -1,10 +1,6 @@
 # coffeelint: disable=max_line_length
 {CompositeDisposable} = require 'atom'
-{Directory} = require 'atom'
-mkdirp = require 'mkdirp'
 moment = require 'moment'
-path = require 'path'
-os = require 'os'
 CalendarView = require './calendar-view'
 cal = require './calendar-lib'
 
@@ -58,8 +54,10 @@ module.exports = AtomDiary =
   serialize: ->
     calendarViewState: @myCalendar.serialize()
 
+
   updateCalendar: ->
     @myCalendar.update(@getMoment())
+
 
   toggleCalendar: ->
     console.log 'Calendarview was toggled!'
@@ -69,6 +67,19 @@ module.exports = AtomDiary =
       @myCalendar.update(@getMoment())
       @myCalendarPanel.show()
 
+
+  openDiaryFile: (year, month, position) ->
+    atom.workspace.open(cal.getMonthFileName(
+      atom.config.get('atom-diary.baseDir'),
+      atom.config.get('atom-diary.filePrefix'),
+      year,
+      month,
+      atom.config.get('atom-diary.markupLanguage')
+    ), {searchAllPanes: true}).then (e) ->
+      editor = e
+      editor.scrollToBufferPosition(position)
+
+
   # returns a localized moment
   getMoment: ->
     now = moment()
@@ -76,18 +87,10 @@ module.exports = AtomDiary =
       now.locale(atom.config.get('atom-diary.diaryLocale'))
     now
 
-  # now is a moment
-  getCreateDirectories: (now) ->
-    baseDir = cal.absolutize(atom.config.get('atom-diary.baseDir'))
-    monthDir = baseDir + path.sep + now.format('YYYY')
-    myDir = new Directory(monthDir)
-    mkdirp.sync(myDir.getRealPathSync())
-    [baseDir, monthDir]
-
 
   showProject: ->
     now = @getMoment()
-    dirs = @getCreateDirectories(now)
+    dirs = cal.getCreateDirectories(atom.config.get('atom-diary.baseDir'), now)
     console.log('opening path ' + dirs[0])
     atom.open({pathsToOpen: [dirs[0]], newWindow: false})
 
@@ -102,15 +105,18 @@ module.exports = AtomDiary =
     #
     # getCreate monthDir
     #
-    dirs = @getCreateDirectories(now)
+    dirs = cal.getCreateDirectories(atom.config.get('atom-diary.baseDir'), now)
     monthDir = dirs[1]
 
     #
-    # getCreate month file
+    # determine month file and other key information
     #
-    dayString = now.format('YYYY-MM')
-    monthFileName = monthDir + path.sep + atom.config.get('atom-diary.filePrefix') + '-' + dayString + '.' + cal.markups[myMarkup].ext
-    console.log 'monthFileName will be ' + monthFileName
+    monthFileName = cal.getMonthFileName(
+      atom.config.get('atom-diary.baseDir'),
+      atom.config.get('atom-diary.filePrefix'),
+      now.format("YYYY"),
+      now.format("MM"),
+      myMarkup)
     currentHeader = cal.markups[myMarkup].fileHeader.format [now.format('MMMM YYYY')]
     currentEntry = cal.markups[myMarkup].entryHeader.format [now.format('DD. MMMM, LT, dddd')]
 

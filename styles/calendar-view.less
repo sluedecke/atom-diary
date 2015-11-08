@@ -4,6 +4,20 @@
 @white: #ffffff;
 @dark-blue: #3839d2;
 
+.calendar-titlebar {
+  padding: 5px;
+  background-color: @light-grey;
+}
+
+.calendar-content {
+  padding: 5px
+}
+
+.calendar-close {
+  float: right;
+  padding: 2px;
+}
+
 .cal-weekend {
   color: @dark-grey;
 }
@@ -15,16 +29,15 @@
 .cal-header {
   text-align: center;
   padding: 5px;
+  cursor: default;
 }
 
 .cal-cell {
   padding: 5px;
+  cursor: default;
 }
 
 .cal-day {
-  &:hover {
-    background-color: @light-grey;
-  }
 }
 
 .cal-today {
@@ -34,4 +47,7 @@
 .cal-has-entry {
   color: @dark-blue;
   font-weight: bold;
+  &:hover {
+    background-color: @light-grey;
+  }
 }
