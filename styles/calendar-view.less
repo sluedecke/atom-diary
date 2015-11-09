@@ -12,18 +12,21 @@
   padding: 5px
 }
 
+.calendar-separator {
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
 .calendar-close {
   float: right;
 }
 
 .calendar-navigation {
+  .cal-has-entry;
   padding: 2px;
   padding-left: 4px;
   padding-right: 4px;
   vertical-align: middle;
-  &:hover {
-    background-color: @light-grey;
-  }
 }
 
 .cal-weekend {
@@ -45,7 +48,9 @@
   cursor: default;
 }
 
-.cal-day {
+.cal-hidden {
+  .cal-cell;
+  visibility: hidden;
 }
 
 .cal-today {

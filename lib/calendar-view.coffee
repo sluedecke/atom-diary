@@ -22,7 +22,36 @@ class CalendarView
 
     m = document.createElement('label')
     m.textContent = "Diary Calendar View"
-    m.className = "calendar-title"
+    titleBar.appendChild(m)
+
+    m = document.createElement('label')
+    m.textContent = "|"
+    m.className = "calendar-separator"
+    titleBar.appendChild(m)
+
+    m = document.createElement('label')
+    m.textContent = 'Jump to:'
+    titleBar.appendChild(m)
+
+    m = document.createElement('label')
+    m.textContent = "prev YEAR"
+    m.className = "cal-cell cal-has-entry"
+    m.addEventListener('click', @prevYear)
+    m.calendar = this
+    titleBar.appendChild(m)
+
+    m = document.createElement('label')
+    m.textContent = "TODAY"
+    m.className = "cal-cell cal-has-entry"
+    m.addEventListener('click', @showToday)
+    m.calendar = this
+    titleBar.appendChild(m)
+
+    m = document.createElement('label')
+    m.textContent = "next YEAR"
+    m.className = "cal-cell cal-has-entry"
+    m.addEventListener('click', @nextYear)
+    m.calendar = this
     titleBar.appendChild(m)
 
     m = document.createElement('label')
@@ -95,10 +124,10 @@ class CalendarView
     #
     tr = t.insertRow(-1)
     myMonth = now.month()
+    myStartDay = now.weekday()
     someMoment = moment(now).startOf('week')
     year = now.format("YYYY")
     month = now.format("MM")
-    console.log "daymap is " + @dayMap
     for i in [0...42] # iterate over 6 rows which is the max of possible rows
       # ony cells from the month at hand shall have content
       if myMonth == someMoment.month()
@@ -111,7 +140,10 @@ class CalendarView
         @addCell(tr)
       if i % 7 == 6 then tr = t.insertRow(-1)
       someMoment.add(1, 'day')
-
+    # add "hidden" to make all entries same height
+    if myStartDay < 5
+      tr = t.insertRow(-1)
+      @addCell(tr, "00", "cal-hidden")
 
   addCell: (row, title, clazz, year, month, position) ->
     c = row.insertCell(-1)
@@ -144,8 +176,6 @@ class CalendarView
 
   getClasses: (now, header) ->
     r = "cal-cell"
-    if !header
-      r+= " cal-day"
     if now.isoWeekday() > 5
       r += " cal-weekend"
     actual = moment()
@@ -171,6 +201,18 @@ class CalendarView
     console.log "navigate to this direction: " + e.target.attributes.dir.value
     console.log "calendar is: " + @calendar
     @calendar.update(moment(@calendar.now).add(e.target.attributes.dir.value, 'month'))
+
+  showToday: (e) ->
+    @calendar.update(@calendar.main.getMoment())
+
+  prevYear: (e) ->
+    # @calendar.update(now.startOf('month').subtract(1, 'year'))
+    console.log "now is #{@calendar.now.toJSON()}"
+    @calendar.update(@calendar.now.year(@calendar.now.year() - 1))
+
+  nextYear: (e) ->
+    console.log "now is #{@calendar.now.toJSON()}"
+    @calendar.update(@calendar.now.startOf('month').add(1, 'year'))
 
   ##
   ## Remaining lifecycle routines

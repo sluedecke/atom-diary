@@ -12,7 +12,7 @@ You might want to install the [Asciidoctor preview package for Atom](https://ato
 
 ## Features
 
-![](screenshot.png)
+![Screenshot of atom-diary](https://github.com/sluedecke/atom-diary/blob/master/screenshot.png)
 
 * Creates month based Asciidoc or Markdown files for diaries
 * Includes three month calendar view, days with entries are highlighted and clickable

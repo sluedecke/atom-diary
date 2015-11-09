@@ -9,7 +9,7 @@ mkdirp = require 'mkdirp'
 # returns a map of days found in the files around now
 # will check files for month(now) -1, month(now), month(now) + 1 if they exist
 module.exports.getDays = getDays = (baseDir, prefix, markup, now) ->
-  console.log "getDays called with #{baseDir} #{prefix} #{markup} #{now}"
+  ## console.log "getDays called with #{baseDir} #{prefix} #{markup} #{now}"
   map = {}
   # start with last month
   myMoment = moment(now).subtract(1, 'month').startOf('month')
@@ -20,7 +20,7 @@ module.exports.getDays = getDays = (baseDir, prefix, markup, now) ->
     map[year] = {} unless map[year]
     map[year][month] = {}
     try
-      console.log "checking #{name}"
+      ## console.log "checking #{name}"
       s = fs.statSync(name)
       if s.isFile()
         content = fs.readFileSync(name, 'utf8')
@@ -31,9 +31,9 @@ module.exports.getDays = getDays = (baseDir, prefix, markup, now) ->
       else
         console.log "Not a file: #{name}"
     catch error
-      console.log "Error reading file #{name}: #{error.message}"
+      ## console.log "Error reading file #{name}: #{error.message}"
     myMoment.add(1, 'month')
-  console.log map
+  ## console.log map
   map
 
 module.exports.getCreateDirectories = getCreateDirectories = (baseDir, now) ->
