@@ -68,16 +68,19 @@ module.exports = AtomDiary =
       @myCalendarPanel.show()
 
 
-  openDiaryFile: (year, month, position) ->
+  openDiaryFile: (year, month, day) ->
+    myMarkup = atom.config.get('atom-diary.markupLanguage')
     atom.workspace.open(cal.getMonthFileName(
       atom.config.get('atom-diary.baseDir'),
       atom.config.get('atom-diary.filePrefix'),
       year,
       month,
-      atom.config.get('atom-diary.markupLanguage')
+      myMarkup
     ), {searchAllPanes: true}).then (e) ->
-      editor = e
-      editor.scrollToBufferPosition(position)
+      e.scan new RegExp(cal.markups[myMarkup].regexStart + day), (result) ->
+        e.setCursorBufferPosition(result.range.start, autoscroll: false)
+        e.scrollToBufferPosition(result.range.start, center: true)
+        result.stop()
 
 
   # returns a localized moment

@@ -58,6 +58,7 @@ module.exports.markups = markups = {
   'Asciidoc' : {
     'ext': 'adoc'
     'regex': new RegExp("== ([0-9]+)", 'g')
+    'regexStart': '== '
     'fileHeader':
       """
       = {0}
@@ -76,6 +77,7 @@ module.exports.markups = markups = {
   'Markdown' : {
     'ext' : 'md'
     'regex': new RegExp("## ([0-9]+)", 'g')
+    'regexStart': '## '
     'fileHeader':
       """
       # {0}

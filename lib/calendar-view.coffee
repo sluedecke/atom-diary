@@ -155,7 +155,7 @@ class CalendarView
     if position # day at cell has a diary entry
       c.setAttribute('year', year)
       c.setAttribute('month', month)
-      c.setAttribute('position', position)
+      c.setAttribute('day', title)
       c.addEventListener("click", @openFileEvent)
     c.main = @main
 
@@ -195,7 +195,7 @@ class CalendarView
   openFileEvent: (e) ->
     @main.openDiaryFile(e.target.attributes.year.value,
       e.target.attributes.month.value,
-      e.target.attributes.position.value)
+      e.target.attributes.day.value)
 
   monthNavigate: (e) ->
     console.log "navigate to this direction: " + e.target.attributes.dir.value

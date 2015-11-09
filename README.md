@@ -29,7 +29,7 @@ You might want to install the [Asciidoctor preview package for Atom](https://ato
   * [DONE] do not change cursor when hovering over days
   * [DONE] add close button to calendar view
   * [DONE] add navigation to calendar view (switching months)
-  * [IN PROGRESS] open file for a day when clicking on it
+  * [DONE] open file for a day when clicking on it
   * make useful for light and dark themes
   * update calendar view when saving a diary file
 * Make diary printable

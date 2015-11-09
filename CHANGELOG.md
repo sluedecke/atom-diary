@@ -1,11 +1,10 @@
-## 0.4.0 IN PROGRESS
-* Added simple calendar view
-  * showing three months
-  * highlighting days with entries
-  * toggles day background on mouse hover on days with entries
-  * added close button
-  * days with entries can be clicked, will open respective month file
-  * added navigational (previous month, next month) to calendar view
+## 0.9.0 -
+* Added calendar view
+  * shows three months
+  * highlights days with entries and toggles day background on mouse hover on days with entries
+  * days with entries can be clicked, will open respective month file and jumps to first entry for this day
+  * has close button
+  * has navigation buttons (previous month, next month, previous year, next year, today)
 * Added opening the diary basedir as a project (nothing else yet)
 * Reorganized TODOs in README.md
 * some refactoring of code to make it more modular
