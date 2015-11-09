@@ -7,6 +7,7 @@ module.exports =
 class CalendarView
   dayMap = {}
   main = null
+  now = null
 
   constructor: (main) ->
     @main = main
@@ -26,7 +27,7 @@ class CalendarView
 
     m = document.createElement('label')
     m.textContent = "X"
-    m.className = "calendar-close"
+    m.className = "calendar-close calendar-navigation"
     m.addEventListener('click', @toggleEvent)
     m.main = @main
     titleBar.appendChild(m)
@@ -40,6 +41,7 @@ class CalendarView
 
 
   update: (now) ->
+    @now = now
     @element.removeChild(@element.lastChild)
     d = document.createElement('div')
     d.className = 'calendar-content'
@@ -57,10 +59,11 @@ class CalendarView
       atom.config.get('atom-diary.filePrefix'),
       atom.config.get('atom-diary.markupLanguage')
       now)
+    @addMonthNavigation(tr, -1, "<<")
     @addMonth(tr.insertCell(-1), moment(now).subtract(1, 'months'))
     @addMonth(tr.insertCell(-1), moment(now))
     @addMonth(tr.insertCell(-1), moment(now).add(1, 'months'))
-
+    @addMonthNavigation(tr, 1, ">>")
 
   # Adds a month table to the root element.
   addMonth: (root, startDate) ->
@@ -125,6 +128,16 @@ class CalendarView
     c.main = @main
 
 
+  addMonthNavigation: (root, direction, character) ->
+    cell = root.insertCell(-1)
+    cell.innerText = character
+    cell.setAttribute('dir', direction)
+    cell.className = "calendar-navigation"
+    cell.calendar = this
+    cell.addEventListener('click', @monthNavigate)
+    root.appendChild(cell)
+
+
   ##
   ## Internal routines to make life easier
   ##
@@ -153,6 +166,11 @@ class CalendarView
     @main.openDiaryFile(e.target.attributes.year.value,
       e.target.attributes.month.value,
       e.target.attributes.position.value)
+
+  monthNavigate: (e) ->
+    console.log "navigate to this direction: " + e.target.attributes.dir.value
+    console.log "calendar is: " + @calendar
+    @calendar.update(moment(@calendar.now).add(e.target.attributes.dir.value, 'month'))
 
   ##
   ## Remaining lifecycle routines
