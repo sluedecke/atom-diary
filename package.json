@@ -1,7 +1,7 @@
 {
   "name": "atom-diary",
   "main": "./lib/atom-diary",
-  "version": "0.3.0",
+  "version": "0.9.0",
   "description": "Keep a diary with entries in a markup language (Asciidoc or Markdown).",
   "keywords": [
     "diary",
