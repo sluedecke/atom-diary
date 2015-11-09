@@ -1,11 +1,8 @@
-@dark-grey: #8f8f8f;
-@light-grey: #d7d6d6;
-@dark-red: #8b0000;
 @white: #ffffff;
-@dark-blue: #3839d2;
 
 .calendar-titlebar {
   padding: 5px;
+  vertical-align: middle;
 }
 
 .calendar-content {
@@ -30,7 +27,7 @@
 }
 
 .cal-weekend {
-  color: @dark-grey;
+  color: @text-color-subtle;
 }
 
 .cal-monthtable {
@@ -54,13 +51,14 @@
 }
 
 .cal-today {
-  border: 2px solid @dark-red;
+  border: 2px solid @ui-site-color-2;
 }
 
 .cal-has-entry {
-  color: @dark-blue;
+  color: @text-color-info;
   font-weight: bold;
   &:hover {
-    background-color: @light-grey;
+    // color: @white;
+    background-color: @button-background-color;
   }
 }

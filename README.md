@@ -1,10 +1,11 @@
 # atom-diary package
 
-This is a simple package to create diary entries using an [Asciidoc](http://asciidoc.org/) or [Markdown](https://daringfireball.net/projects/markdown/) templates.
+Keep a diary in atom using markup like [Asciidoc](http://asciidoc.org/) or [Markdown](https://daringfireball.net/projects/markdown/).
 
-There will be one file for each month which contains all entries for this month.
-New entries for a day will be appended this file.  If there is no file
-for the relevant month, it will be created and all files are kept within a configurable directory.
+This addon allows you to keep a diary in atom - how great is that?  It has a nice three month calendar view for easy navigation to past entries and organizes your diary files in monthly files.
+
+* Add an entry for today: `Ctrl-Alt-E`
+* Open calendar view: `Ctrl-Shift-E`
 
 This addon is inspired by my Emacs module [diary-private.el](http://meta-x.de/software/diary-private.el)
 
@@ -12,12 +13,12 @@ You might want to install the [Asciidoctor preview package for Atom](https://ato
 
 ## Features
 
-![Screenshot of atom-diary](https://github.com/sluedecke/atom-diary/blob/master/screenshot.png)
+![Screenshot of atom-diary](https://raw.githubusercontent.com/sluedecke/atom-diary/master/screenshot.png)
 
-* Creates month based Asciidoc or Markdown files for diaries
-* Includes three month calendar view, days with entries are highlighted and clickable
+* `Ctrl-Alt-E`: Creates month based Asciidoc or Markdown files for diaries
+* `Ctrl-Shift-E`: Opens three month calendar view, days with entries are clickable
+* Calendar view allows to navigate back and forth between months and years
 * User can set a language for the diary files different from the system language
-* Automatically creates the diary base directory and one sub-directory per year
 
 ## TODO items
 
@@ -30,7 +31,7 @@ You might want to install the [Asciidoctor preview package for Atom](https://ato
   * [DONE] add close button to calendar view
   * [DONE] add navigation to calendar view (switching months)
   * [DONE] open file for a day when clicking on it
-  * make useful for light and dark themes
+  * [DONE] make colors follow selected atom theme
   * update calendar view when saving a diary file
 * Make diary printable
   * include meta Asciidoc/Markdown files to create a printable diary using include::\*[]
@@ -43,4 +44,4 @@ You might want to install the [Asciidoctor preview package for Atom](https://ato
 * can we make use of services to communicate between atom windows?
 * expand on ~/ and $HOME in baseDir configuration
 * Improve markup support by using file templates
-* Review licensing and consider switch to MIT License
+* Review licensing and consider switching to MIT License

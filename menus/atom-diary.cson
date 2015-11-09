@@ -10,18 +10,14 @@
           'label': 'Add an entry'
           'command': 'atom-diary:addEntry'
         },
-        {type: 'separator'},
-        {
-          'label': 'Diary as project'
-          'command': 'atom-diary:showProject'
-        },
         {
           'label': 'Show calendar'
           'command': 'atom-diary:toggleCalendar'
         },
+        {type: 'separator'},
         {
-          'label': 'Update calendar'
-          'command': 'atom-diary:updateCalendar'
+          'label': 'Diary as project'
+          'command': 'atom-diary:showProject'
         },
       ]
     ]

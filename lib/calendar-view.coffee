@@ -30,7 +30,7 @@ class CalendarView
     titleBar.appendChild(m)
 
     m = document.createElement('label')
-    m.textContent = 'Jump to:'
+    m.textContent = 'Jump to: '
     titleBar.appendChild(m)
 
     m = document.createElement('label')
@@ -56,7 +56,7 @@ class CalendarView
 
     m = document.createElement('label')
     m.textContent = "X"
-    m.className = "calendar-close calendar-navigation"
+    m.className = "calendar-close calendar-navigation btn"
     m.addEventListener('click', @toggleEvent)
     m.main = @main
     titleBar.appendChild(m)

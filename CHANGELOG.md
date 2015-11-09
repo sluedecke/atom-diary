@@ -1,10 +1,15 @@
-## 0.9.0 -
+## 0.9.1 - The release is near
+* calendar view colors now follow the atom theme
+* changed hotkeys
+
+## 0.9.0 - Preparing 1.0
 * Added calendar view
   * shows three months
   * highlights days with entries and toggles day background on mouse hover on days with entries
   * days with entries can be clicked, will open respective month file and jumps to first entry for this day
   * has close button
   * has navigation buttons (previous month, next month, previous year, next year, today)
+  * makes use of atom theme colors
 * Added opening the diary basedir as a project (nothing else yet)
 * Reorganized TODOs in README.md
 * some refactoring of code to make it more modular
