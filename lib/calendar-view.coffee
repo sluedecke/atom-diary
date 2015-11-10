@@ -37,28 +37,24 @@ class CalendarView
     m.textContent = "prev YEAR"
     m.className = "cal-cell cal-has-entry"
     m.addEventListener('click', @prevYear)
-    m.calendar = this
     titleBar.appendChild(m)
 
     m = document.createElement('label')
     m.textContent = "TODAY"
     m.className = "cal-cell cal-has-entry"
     m.addEventListener('click', @showToday)
-    m.calendar = this
     titleBar.appendChild(m)
 
     m = document.createElement('label')
     m.textContent = "next YEAR"
     m.className = "cal-cell cal-has-entry"
     m.addEventListener('click', @nextYear)
-    m.calendar = this
     titleBar.appendChild(m)
 
     m = document.createElement('label')
     m.textContent = "X"
     m.className = "calendar-close calendar-navigation btn"
     m.addEventListener('click', @toggleEvent)
-    m.main = @main
     titleBar.appendChild(m)
 
     #
@@ -157,7 +153,6 @@ class CalendarView
       c.setAttribute('month', month)
       c.setAttribute('day', title)
       c.addEventListener("click", @openFileEvent)
-    c.main = @main
 
 
   addMonthNavigation: (root, direction, character) ->
@@ -165,7 +160,6 @@ class CalendarView
     cell.innerText = character
     cell.setAttribute('dir', direction)
     cell.className = "calendar-navigation"
-    cell.calendar = this
     cell.addEventListener('click', @monthNavigate)
     root.appendChild(cell)
 
@@ -189,30 +183,26 @@ class CalendarView
 
   # these are called on HTMLELement as this
 
-  toggleEvent: (e) ->
+  toggleEvent: (e) =>
     @main.toggleCalendar()
 
-  openFileEvent: (e) ->
-    @main.openDiaryFile(e.target.attributes.year.value,
+  openFileEvent: (e) =>
+    @main.openDiaryFile(
+      e.target.attributes.year.value,
       e.target.attributes.month.value,
       e.target.attributes.day.value)
 
-  monthNavigate: (e) ->
-    console.log "navigate to this direction: " + e.target.attributes.dir.value
-    console.log "calendar is: " + @calendar
-    @calendar.update(moment(@calendar.now).add(e.target.attributes.dir.value, 'month'))
+  monthNavigate: (e) =>
+    @update(moment(@now).add(e.target.attributes.dir.value, 'month'))
 
-  showToday: (e) ->
-    @calendar.update(@calendar.main.getMoment())
+  showToday: (e) =>
+    @update(@main.getMoment())
 
-  prevYear: (e) ->
-    # @calendar.update(now.startOf('month').subtract(1, 'year'))
-    console.log "now is #{@calendar.now.toJSON()}"
-    @calendar.update(@calendar.now.year(@calendar.now.year() - 1))
+  prevYear: (e) =>
+    @update(@now.year(@now.year() - 1))
 
-  nextYear: (e) ->
-    console.log "now is #{@calendar.now.toJSON()}"
-    @calendar.update(@calendar.now.startOf('month').add(1, 'year'))
+  nextYear: (e) =>
+    @update(@now.startOf('month').add(1, 'year'))
 
   ##
   ## Remaining lifecycle routines

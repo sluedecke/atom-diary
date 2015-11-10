@@ -6,6 +6,7 @@ cal = require './calendar-lib'
 
 module.exports = AtomDiary =
   subscriptions: null
+  disposables: null
   myCalendar: null
   myCalendarPanel: null
 
@@ -31,6 +32,7 @@ module.exports = AtomDiary =
       default: 'Asciidoc'
       enum: ['Asciidoc', 'Markdown']
 
+
   activate: (state) ->
     @myCalendar = new CalendarView(this)
     @myCalendarPanel = atom.workspace.addBottomPanel(item: @myCalendar.getElement(), visible: false)
@@ -39,6 +41,8 @@ module.exports = AtomDiary =
     @subscriptions.add atom.commands.add 'atom-workspace', 'atom-diary:showProject':  => @showProject()
     @subscriptions.add atom.commands.add 'atom-workspace', 'atom-diary:toggleCalendar':  => @toggleCalendar()
     @subscriptions.add atom.commands.add 'atom-workspace', 'atom-diary:updateCalendar':  => @updateCalendar()
+
+    @disposables = new CompositeDisposable()
     # allow for easy formatting of strings
     # as seen in: http://stackoverflow.com/a/14263681/3079262
     String.prototype.format = ->
@@ -46,10 +50,13 @@ module.exports = AtomDiary =
       return this.replace /{(\d+)}/g, (match, number) ->
         return if typeof args[number] isnt 'undefined' then args[number] else match
 
+
   deactivate: ->
     @subscriptions.dispose()
     @myCalendar.destroy()
     @myCalendarPanel.destroy()
+    @disposables.destroy()
+
 
   serialize: ->
     calendarViewState: @myCalendar.serialize()
@@ -69,6 +76,7 @@ module.exports = AtomDiary =
 
 
   openDiaryFile: (year, month, day) ->
+    console.log "opening diary file for #{year} #{month} #{day}"
     myMarkup = atom.config.get('atom-diary.markupLanguage')
     atom.workspace.open(cal.getMonthFileName(
       atom.config.get('atom-diary.baseDir'),
@@ -76,11 +84,16 @@ module.exports = AtomDiary =
       year,
       month,
       myMarkup
-    ), {searchAllPanes: true}).then (e) ->
+    ), {searchAllPanes: true}).then (e) =>
       e.scan new RegExp(cal.markups[myMarkup].regexStart + day), (result) ->
         e.setCursorBufferPosition(result.range.start, autoscroll: false)
         e.scrollToBufferPosition(result.range.start, center: true)
         result.stop()
+      # Listen to changes to the just opened file
+      @disposables.add e.getBuffer().onDidSave =>
+        @myCalendar.update(@myCalendar.now)
+      @disposables.add e.getBuffer().onDidReload =>
+        @myCalendar.update(@myCalendar.now)
 
 
   # returns a localized moment

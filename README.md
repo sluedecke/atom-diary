@@ -32,7 +32,8 @@ You might want to install the [Asciidoctor preview package for Atom](https://ato
   * [DONE] add navigation to calendar view (switching months)
   * [DONE] open file for a day when clicking on it
   * [DONE] make colors follow selected atom theme
-  * update calendar view when saving a diary file
+  * [IN PROGRESS]update calendar view when saving a diary file
+    * make use of central file opening routine in atom-diary.coffee
 * Make diary printable
   * include meta Asciidoc/Markdown files to create a printable diary using include::\*[]
 * Make diary manageable
@@ -44,4 +45,6 @@ You might want to install the [Asciidoctor preview package for Atom](https://ato
 * can we make use of services to communicate between atom windows?
 * expand on ~/ and $HOME in baseDir configuration
 * Improve markup support by using file templates
+* watch for changes on diary files even when they are changed by atom outside atom-diary
+* add some simple caching in calendar-lib::getDays which is based on file modification times
 * Review licensing and consider switching to MIT License

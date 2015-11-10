@@ -1,3 +1,7 @@
+## 0.9.2 - Round the edges
+* calendar view updates when a diary file is changed (saved).  Diary file has to be opened via atom-diary mechanisms!
+* learned the meaning of fat arrow and made use of it
+
 ## 0.9.1 - The release is near
 * calendar view colors now follow the atom theme
 * changed hotkeys
