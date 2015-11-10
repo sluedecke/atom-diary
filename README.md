@@ -24,17 +24,7 @@ You might want to install the [Asciidoctor preview package for Atom](https://ato
 
 ### Major features
 
-1. [IN PROGRESS] Add a calendar view
-  * [DONE] add calendar view
-  * [DONE] highlight dates with entries
-  * [DONE] do not change cursor when hovering over days
-  * [DONE] add close button to calendar view
-  * [DONE] add navigation to calendar view (switching months)
-  * [DONE] open file for a day when clicking on it
-  * [DONE] make colors follow selected atom theme
-  * [IN PROGRESS]update calendar view when saving a diary file
-    * make use of central file opening routine in atom-diary.coffee
-* Make diary printable
+1. Make diary printable
   * include meta Asciidoc/Markdown files to create a printable diary using include::\*[]
 * Make diary manageable
   * Add command to open diary basedir as a project with own tree-view, probably integrate with [project-manager](https://atom.io/packages/project-manager)

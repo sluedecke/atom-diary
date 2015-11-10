@@ -75,25 +75,30 @@ module.exports = AtomDiary =
       @myCalendarPanel.show()
 
 
+  openFile: (fileName, closure) ->
+    console.log 'will now open file: ' + fileName
+    console.log 'closure is #{closure}'
+    atom.workspace.open(fileName, {searchAllPanes: true}).then (editor) =>
+      @disposables.add editor.getBuffer().onDidSave =>
+        @myCalendar.update(@myCalendar.now)
+      @disposables.add editor.getBuffer().onDidReload =>
+        @myCalendar.update(@myCalendar.now)
+      closure(editor)
+
+
   openDiaryFile: (year, month, day) ->
     console.log "opening diary file for #{year} #{month} #{day}"
     myMarkup = atom.config.get('atom-diary.markupLanguage')
-    atom.workspace.open(cal.getMonthFileName(
-      atom.config.get('atom-diary.baseDir'),
-      atom.config.get('atom-diary.filePrefix'),
-      year,
-      month,
-      myMarkup
-    ), {searchAllPanes: true}).then (e) =>
-      e.scan new RegExp(cal.markups[myMarkup].regexStart + day), (result) ->
-        e.setCursorBufferPosition(result.range.start, autoscroll: false)
-        e.scrollToBufferPosition(result.range.start, center: true)
-        result.stop()
-      # Listen to changes to the just opened file
-      @disposables.add e.getBuffer().onDidSave =>
-        @myCalendar.update(@myCalendar.now)
-      @disposables.add e.getBuffer().onDidReload =>
-        @myCalendar.update(@myCalendar.now)
+    @openFile(
+      cal.getMonthFileName(
+        atom.config.get('atom-diary.baseDir'),
+        atom.config.get('atom-diary.filePrefix'),
+        year, month, myMarkup),
+      ((e) ->
+        e.scan new RegExp(cal.markups[myMarkup].regexStart + day), (result) ->
+          e.setCursorBufferPosition(result.range.start, autoscroll: false)
+          e.scrollToBufferPosition(result.range.start, center: true)
+          result.stop()))
 
 
   # returns a localized moment
@@ -140,13 +145,12 @@ module.exports = AtomDiary =
     # open new file in atom
     #
     console.log 'will now open file: ' + monthFileName
-    # FIXME check if monthFileName is already open somewhere and reuse this
-    # atom.workspace.open(monthFileName, {searchAllPanes: true}).then (editor) ->
-    atom.workspace.open(monthFileName, {searchAllPanes: true}).then (e) ->
-      editor = e
-      # editor = atom.workspace.getActiveTextEditor()
-      editor.moveToBottom()
-      # if the file is empty, insert boilerplate
-      if (editor.getText().length is 0)
-        editor.insertText(currentHeader)
-      editor.insertText(currentEntry)
+    @openFile(
+      monthFileName,
+      ((editor) ->
+        editor.moveToBottom()
+        # if the file is empty, insert boilerplate
+        if (editor.getText().length is 0)
+          editor.insertText(currentHeader)
+        editor.insertText(currentEntry)
+      ))
