@@ -1,3 +1,7 @@
+## UPCOMING
+* only update calendar when it is visible (toggling visibility updates anyways)
+* Generate summary files per year for Asciidoc
+
 ## 1.0.0 - The Release
 * calendar view updates when a diary file is changed (saved).  Diary file has to be opened via atom-diary mechanisms!
 * learned the meaning of fat arrow and made use of it

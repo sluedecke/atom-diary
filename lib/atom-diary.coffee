@@ -41,6 +41,7 @@ module.exports = AtomDiary =
     @subscriptions.add atom.commands.add 'atom-workspace', 'atom-diary:showProject':  => @showProject()
     @subscriptions.add atom.commands.add 'atom-workspace', 'atom-diary:toggleCalendar':  => @toggleCalendar()
     @subscriptions.add atom.commands.add 'atom-workspace', 'atom-diary:updateCalendar':  => @updateCalendar()
+    @subscriptions.add atom.commands.add 'atom-workspace', 'atom-diary:createPrintableDiary':  => @createPrintableDiary()
 
     @disposables = new CompositeDisposable()
     # allow for easy formatting of strings
@@ -75,14 +76,24 @@ module.exports = AtomDiary =
       @myCalendarPanel.show()
 
 
+  createPrintableDiary: ->
+    cal.createPrintableDiary(
+      atom.config.get('atom-diary.baseDir'),
+      atom.config.get('atom-diary.filePrefix'),
+      atom.config.get('atom-diary.markupLanguage')
+    )
+
+
   openFile: (fileName, closure) ->
     console.log 'will now open file: ' + fileName
     console.log 'closure is #{closure}'
     atom.workspace.open(fileName, {searchAllPanes: true}).then (editor) =>
       @disposables.add editor.getBuffer().onDidSave =>
-        @myCalendar.update(@myCalendar.now)
+        if @myCalendarPanel.isVisible()
+          @myCalendar.update(@myCalendar.now)
       @disposables.add editor.getBuffer().onDidReload =>
-        @myCalendar.update(@myCalendar.now)
+        if @myCalendarPanel.isVisible()
+          @myCalendar.update(@myCalendar.now)
       closure(editor)
 
 

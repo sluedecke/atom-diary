@@ -16,6 +16,10 @@
         },
         {type: 'separator'},
         {
+          'label': 'Create printable diary'
+          'command': 'atom-diary:createPrintableDiary'
+        },
+        {
           'label': 'Diary as project'
           'command': 'atom-diary:showProject'
         },

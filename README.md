@@ -24,8 +24,9 @@ You might want to install the [Asciidoctor preview package for Atom](https://ato
 
 ### Major features
 
-1. Make diary printable
-  * include meta Asciidoc/Markdown files to create a printable diary using include::\*[]
+1. [IN PROGRESS] Make diary printable
+  * [DONE] include meta Asciidoc files to create a printable diary
+  * include meta Markdown files to create a printable diary
 * Make diary manageable
   * Add command to open diary basedir as a project with own tree-view, probably integrate with [project-manager](https://atom.io/packages/project-manager)
   * add sorting and other cleanup routines
