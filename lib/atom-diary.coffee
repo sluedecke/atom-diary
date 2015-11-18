@@ -1,5 +1,6 @@
 # coffeelint: disable=max_line_length
 {CompositeDisposable} = require 'atom'
+path = require 'path'
 moment = require 'moment'
 CalendarView = require './calendar-view'
 cal = require './calendar-lib'
@@ -41,7 +42,7 @@ module.exports = AtomDiary =
     @subscriptions.add atom.commands.add 'atom-workspace', 'atom-diary:showProject':  => @showProject()
     @subscriptions.add atom.commands.add 'atom-workspace', 'atom-diary:toggleCalendar':  => @toggleCalendar()
     @subscriptions.add atom.commands.add 'atom-workspace', 'atom-diary:updateCalendar':  => @updateCalendar()
-    @subscriptions.add atom.commands.add 'atom-workspace', 'atom-diary:createPrintableDiary':  => @createPrintableDiary()
+    @subscriptions.add atom.commands.add 'atom-workspace', 'atom-diary:createAndOpenPrintableDiary':  => @createAndOpenPrintableDiary()
 
     @disposables = new CompositeDisposable()
     # allow for easy formatting of strings
@@ -76,12 +77,22 @@ module.exports = AtomDiary =
       @myCalendarPanel.show()
 
 
+  createAndOpenPrintableDiary: ->
+    @createPrintableDiary()
+    @openPrintableDiary()
+
+
   createPrintableDiary: ->
     cal.createPrintableDiary(
       atom.config.get('atom-diary.baseDir'),
       atom.config.get('atom-diary.filePrefix'),
       atom.config.get('atom-diary.markupLanguage')
     )
+
+
+  openPrintableDiary: ->
+    diarySummaryFile = "#{cal.absolutize(atom.config.get('atom-diary.baseDir'))}#{path.sep}#{atom.config.get('atom-diary.filePrefix')}-all.#{cal.markups[atom.config.get('atom-diary.markupLanguage')].ext}"
+    atom.workspace.open(diarySummaryFile, {searchAllPanes: true})
 
 
   openFile: (fileName, closure) ->

@@ -1,6 +1,7 @@
 ## UPCOMING
 * only update calendar when it is visible (toggling visibility updates anyways)
 * Generate summary files per year for Asciidoc
+* Added "New (now)" and "Print all" as action items to both the menu and the calendar screen
 
 ## 1.0.0 - The Release
 * calendar view updates when a diary file is changed (saved).  Diary file has to be opened via atom-diary mechanisms!

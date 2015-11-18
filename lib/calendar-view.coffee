@@ -14,7 +14,7 @@ class CalendarView
     @element = document.createElement('div')
 
     #
-    # calendar header and close button
+    # calendar header
     #
     titleBar = document.createElement('div')
     titleBar.className = 'calendar-titlebar'
@@ -24,6 +24,9 @@ class CalendarView
     m.textContent = "Diary Calendar View"
     titleBar.appendChild(m)
 
+    #
+    # Navigation through time
+    #
     m = document.createElement('label')
     m.textContent = "|"
     m.className = "calendar-separator"
@@ -51,6 +54,33 @@ class CalendarView
     m.addEventListener('click', @nextYear)
     titleBar.appendChild(m)
 
+    #
+    # General actions
+    #
+    m = document.createElement('label')
+    m.textContent = "|"
+    m.className = "calendar-separator"
+    titleBar.appendChild(m)
+
+    m = document.createElement('label')
+    m.textContent = 'Perform action: '
+    titleBar.appendChild(m)
+
+    m = document.createElement('label')
+    m.textContent = "New (now)"
+    m.className = "cal-cell cal-has-entry"
+    m.addEventListener('click', @addEntry)
+    titleBar.appendChild(m)
+
+    m = document.createElement('label')
+    m.textContent = "Print all"
+    m.className = "cal-cell cal-has-entry"
+    m.addEventListener('click', @printAll)
+    titleBar.appendChild(m)
+
+    #
+    # Close button
+    #
     m = document.createElement('label')
     m.textContent = "X"
     m.className = "calendar-close calendar-navigation btn"
@@ -203,6 +233,12 @@ class CalendarView
 
   nextYear: (e) =>
     @update(@now.startOf('month').add(1, 'year'))
+
+  printAll: (e) =>
+    @main.createAndOpenPrintableDiary()
+
+  addEntry: (e) =>
+    @main.addEntry()
 
   ##
   ## Remaining lifecycle routines

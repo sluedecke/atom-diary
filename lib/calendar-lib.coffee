@@ -133,12 +133,11 @@ module.exports.markups = markups = {
       :leveloffset: +1
 
       {1}
-
+      :leveloffset: -1
       """
     'includeTemplate':
       """
       include::{0}[]
-
 
       """
     },
