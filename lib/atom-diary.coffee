@@ -1,5 +1,6 @@
 # coffeelint: disable=max_line_length
 {CompositeDisposable} = require 'atom'
+path = require 'path'
 moment = require 'moment'
 CalendarView = require './calendar-view'
 cal = require './calendar-lib'
@@ -82,6 +83,11 @@ module.exports = AtomDiary =
       atom.config.get('atom-diary.filePrefix'),
       atom.config.get('atom-diary.markupLanguage')
     )
+
+
+  openPrintableDiary: ->
+    diarySummaryFile = "#{cal.absolutize(atom.config.get('atom-diary.baseDir'))}#{path.sep}#{atom.config.get('atom-diary.filePrefix')}-all.#{cal.markups[atom.config.get('atom-diary.markupLanguage')].ext}"
+    atom.workspace.open(diarySummaryFile, {searchAllPanes: true})
 
 
   openFile: (fileName, closure) ->
