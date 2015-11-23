@@ -1,4 +1,4 @@
-## UPCOMING
+## 1.0.1 - First one-for-all printable diary
 * only update calendar when it is visible (toggling visibility updates anyways)
 * Generate summary files per year for Asciidoc
 * Added "New (now)" and "Print all" as action items to both the menu and the calendar screen

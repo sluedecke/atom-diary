@@ -5,6 +5,7 @@ moment = require 'moment'
 CalendarView = require './calendar-view'
 cal = require './calendar-lib'
 
+
 module.exports = AtomDiary =
   subscriptions: null
   disposables: null
@@ -78,8 +79,14 @@ module.exports = AtomDiary =
 
 
   createAndOpenPrintableDiary: ->
-    @createPrintableDiary()
-    @openPrintableDiary()
+    if (atom.config.get('atom-diary.markupLanguage') == 'Asciidoc')
+      @createPrintableDiary()
+      @openPrintableDiary()
+    else
+      atom.notifications?.addError "Could not create printable diary",
+        options =
+          detail: "atom-diary currently does not yet support #{atom.config.get('atom-diary.markupLanguage')} for generation of a printable diary"
+          dismissable: true
 
 
   createPrintableDiary: ->

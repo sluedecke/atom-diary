@@ -25,8 +25,11 @@ You might want to install the [Asciidoctor preview package for Atom](https://ato
 ### Major features
 
 1. [IN PROGRESS] Make diary printable
-  * [DONE] include meta Asciidoc files to create a printable diary
-  * include meta Markdown files to create a printable diary
+  * [DONE] create meta Asciidoc files to create a printable diary
+  * create meta Markdown files to create a printable diary
+* Calendar View
+  * Create new entries by right-clicking on a day
+  * add year selector (click on a year number to open selector, shall navigate to the selected year and the current month)
 * Make diary manageable
   * Add command to open diary basedir as a project with own tree-view, probably integrate with [project-manager](https://atom.io/packages/project-manager)
   * add sorting and other cleanup routines
