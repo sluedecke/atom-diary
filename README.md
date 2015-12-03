@@ -19,6 +19,7 @@ You might want to install the [Asciidoctor preview package for Atom](https://ato
 * `Ctrl-Shift-E`: Opens three month calendar view, days with entries are clickable
 * Calendar view allows to navigate back and forth between months and years
 * User can set a language for the diary files different from the system language
+* User can create a printable version of the full diary (Asciidoc only at the moment)
 
 ## TODO items
 
@@ -36,9 +37,7 @@ You might want to install the [Asciidoctor preview package for Atom](https://ato
 
 ### Minor features
 
-* can we make use of services to communicate between atom windows?
 * expand on ~/ and $HOME in baseDir configuration
 * Improve markup support by using file templates
 * watch for changes on diary files even when they are changed by atom outside atom-diary
 * add some simple caching in calendar-lib::getDays which is based on file modification times
-* Review licensing and consider switching to MIT License

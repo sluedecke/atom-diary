@@ -90,7 +90,7 @@ module.exports.createPrintableDiary = createPrintableDiary = (baseDir, prefix, m
 module.exports.getCreateDirectories = getCreateDirectories = (baseDir, now) ->
   myDir = absolutize(baseDir)
   monthDir = myDir + path.sep + now.format('YYYY')
-  mkdirp.sync(fs.realpathSync(monthDir))
+  mkdirp.sync(monthDir)
   [myDir, monthDir]
 
 module.exports.getMonthFileName = getMonthFileName = (baseDir, prefix, year, month, markup) ->

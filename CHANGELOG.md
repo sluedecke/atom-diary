@@ -1,3 +1,8 @@
+## 1.1.0 - Relicensed
+* atom-diary is now under the MIT license (switched from Apache Public License 2.0)
+* Bugfix: weekday name was formated same as TODAY although it shouldn't
+* Bugfix: fixed [Issue #1](https://github.com/sluedecke/atom-diary/issues/1): could not create initial diary directory
+
 ## 1.0.1 - First one-for-all printable diary
 * only update calendar when it is visible (toggling visibility updates anyways)
 * Generate summary files per year for Asciidoc

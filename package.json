@@ -6,6 +6,7 @@
   "keywords": [
     "diary",
     "asciidoc",
+    "asciidoctor",
     "markdown"
   ],
   "activationCommands": {
@@ -17,7 +18,7 @@
     ]
   },
   "repository": "sluedecke/atom-diary",
-  "license": "Apache-2.0",
+  "license": "MIT",
   "engines": {
     "atom": ">=1.0.0 <2.0.0"
   },

@@ -203,7 +203,7 @@ class CalendarView
     if now.isoWeekday() > 5
       r += " cal-weekend"
     actual = moment()
-    if now.isSame(actual, 'day')
+    if (!header && now.isSame(actual, 'day'))
       r += " cal-today"
     r
 
