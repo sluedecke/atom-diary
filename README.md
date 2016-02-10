@@ -29,7 +29,7 @@ You might want to install the [Asciidoctor preview package for Atom](https://ato
   * [DONE] create meta Asciidoc files to create a printable diary
   * create meta Markdown files to create a printable diary
 * Calendar View
-  * Create new entries by right-clicking on a day
+  * [IN PROGRESS] Create new entries by right-clicking on a day
   * add year selector (click on a year number to open selector, shall navigate to the selected year and the current month)
 * Make diary manageable
   * Add command to open diary basedir as a project with own tree-view, probably integrate with [project-manager](https://atom.io/packages/project-manager)
@@ -37,6 +37,8 @@ You might want to install the [Asciidoctor preview package for Atom](https://ato
 
 ### Minor features
 
+* Ask user on the very first start whether he wants to use AsciiDoc or Markdown
+* Make navigating to settings an option in the packages menu (or add easy switching of markup language)
 * expand on ~/ and $HOME in baseDir configuration
 * Improve markup support by using file templates
 * watch for changes on diary files even when they are changed by atom outside atom-diary

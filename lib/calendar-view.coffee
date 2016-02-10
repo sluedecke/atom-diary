@@ -120,6 +120,7 @@ class CalendarView
     @addMonth(tr.insertCell(-1), moment(now).add(1, 'months'))
     @addMonthNavigation(tr, 1, ">>")
 
+
   # Adds a month table to the root element.
   addMonth: (root, startDate) ->
     now = moment(startDate).startOf('month')
@@ -171,6 +172,7 @@ class CalendarView
       tr = t.insertRow(-1)
       @addCell(tr, "00", "cal-hidden")
 
+
   addCell: (row, title, clazz, year, month, position) ->
     c = row.insertCell(-1)
     c.className = clazz
@@ -178,10 +180,10 @@ class CalendarView
       c.innerHTML = title
     else
       c.innerHTML = ""
+    c.setAttribute('year', year)
+    c.setAttribute('month', month)
+    c.setAttribute('day', title)
     if position # day at cell has a diary entry
-      c.setAttribute('year', year)
-      c.setAttribute('month', month)
-      c.setAttribute('day', title)
       c.addEventListener("click", @openFileEvent)
 
 
@@ -205,6 +207,8 @@ class CalendarView
     actual = moment()
     if (!header && now.isSame(actual, 'day'))
       r += " cal-today"
+    if (!header)
+      r += " cal-isday"
     r
 
   ##

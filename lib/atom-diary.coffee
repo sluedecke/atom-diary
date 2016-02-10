@@ -11,6 +11,7 @@ module.exports = AtomDiary =
   disposables: null
   myCalendar: null
   myCalendarPanel: null
+  contextDay: ""
 
   config:
     baseDir:
@@ -34,16 +35,28 @@ module.exports = AtomDiary =
       default: 'Asciidoc'
       enum: ['Asciidoc', 'Markdown']
 
-
   activate: (state) ->
     @myCalendar = new CalendarView(this)
     @myCalendarPanel = atom.workspace.addBottomPanel(item: @myCalendar.getElement(), visible: false)
     @subscriptions = new CompositeDisposable
     @subscriptions.add atom.commands.add 'atom-workspace', 'atom-diary:addEntry':  => @addEntry()
+    @subscriptions.add atom.commands.add 'atom-workspace', 'atom-diary:addEntryHere':  => @addEntryHere()
     @subscriptions.add atom.commands.add 'atom-workspace', 'atom-diary:showProject':  => @showProject()
     @subscriptions.add atom.commands.add 'atom-workspace', 'atom-diary:toggleCalendar':  => @toggleCalendar()
     @subscriptions.add atom.commands.add 'atom-workspace', 'atom-diary:updateCalendar':  => @updateCalendar()
     @subscriptions.add atom.commands.add 'atom-workspace', 'atom-diary:createAndOpenPrintableDiary':  => @createAndOpenPrintableDiary()
+
+    atom.contextMenu.add('.cal-isday': [{
+      'label': 'New Entry here'
+      'created': (event) ->
+        AtomDiary.contextDay = event.path[0].attributes.year.value + "-" + event.path[0].attributes.month.value + "-" + event.path[0].attributes.day.value
+        @label = "Create entry for " + AtomDiary.contextDay
+      'command': 'atom-diary:addEntryHere'
+      }
+      {
+        'label': 'New Entry now'
+        'command': 'atom-diary:addEntry'
+        }])
 
     @disposables = new CompositeDisposable()
     # allow for easy formatting of strings
@@ -145,11 +158,22 @@ module.exports = AtomDiary =
     atom.open({pathsToOpen: [dirs[0]], newWindow: false})
 
 
+  addEntryHere: ->
+    console.log("context day is " + AtomDiary.contextDay)
+    now = moment(AtomDiary.contextDay, "YYYY-MM-DD")
+    if atom.config.get('atom-diary.diaryLocale') != ''
+      now.locale(atom.config.get('atom-diary.diaryLocale'))
+    @addEntryAt(now)
+
+
   addEntry: ->
+    @addEntryAt(@getMoment())
+
+
+  addEntryAt: (now) ->
     #
     # setup now and markup type
     #
-    now = @getMoment()
     myMarkup = atom.config.get('atom-diary.markupLanguage')
 
     #
@@ -177,6 +201,7 @@ module.exports = AtomDiary =
     @openFile(
       monthFileName,
       ((editor) ->
+        # FIXME don't just move to bottom, move to right position!
         editor.moveToBottom()
         # if the file is empty, insert boilerplate
         if (editor.getText().length is 0)
