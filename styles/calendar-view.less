@@ -46,7 +46,10 @@
 }
 
 .cal-isday {
-  // marker for doays (instead of weekday header)
+  // also a marker for days (instead of weekday header)
+  &:hover {
+    background-color: @button-background-color;
+  }
 }
 
 .cal-hidden {
@@ -62,7 +65,9 @@
   color: @text-color-info;
   font-weight: bold;
   &:hover {
-    // color: @white;
-    background-color: @button-background-color;
+    color: @white;
+    // background-color: @button-background-color;
+    color: @button-background-color;
+    background-color: @text-color-info;
   }
 }
