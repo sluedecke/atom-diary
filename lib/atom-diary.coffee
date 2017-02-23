@@ -16,21 +16,21 @@ module.exports = AtomDiary =
   config:
     baseDir:
       title: 'Directory for your diary files'
-      description: 'atom-diary will generate new diary files here and open them as needed.  If it is a relative path, it will be interpreted as a relative to your home directory (os.homedir).<br/>NOTE: special characters like ~ or $HOME are not intrpreted at the moment and left as is!'
+      description: 'atom-diary will generate new diary files here and open them as needed. If it is a relative path, it will be interpreted as relative to your home directory (os.homedir).<br/>NOTE: special characters like ~ or $HOME are not intrpreted at the moment and left as is!'
       type: 'string'
       default: 'Diary'
     filePrefix:
-      title: 'Prefix of diary files, translates to "prefix-2015-11.adoc" for Asciidoc markup'
+      title: 'Prefix of diary files. Translates to "prefix-2015-11.adoc" for Asciidoc markup'
       type: 'string'
       default: 'diary'
     diaryLocale:
       title: 'Language of the diary file'
-      description: 'If you happen to have a differen system language than your diary language, you can set you diary language here.  This affects the generation of month and day names.<br/><br/>Leave empty to use your system default locale.'
+      description: 'If you happen to have a different system language than your diary language, you can set you diary language here. This affects the generation of month and day names.<br/><br/>Leave empty to use your system default locale.'
       type: 'string'
       default: ''
     markupLanguage:
       title: 'Markup language to be used for diary files'
-      description: 'Determines what format your diary files are created in.  Please note that changing this value does not convert existing files and you might end up with a mix of markup styles'
+      description: 'Determines what format your diary files are created in. Please note that changing this value does not convert existing files and you might end up with a mix of markup styles'
       type: 'string'
       default: 'Asciidoc'
       enum: ['Asciidoc', 'Markdown']
