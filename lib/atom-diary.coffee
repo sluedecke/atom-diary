@@ -179,8 +179,8 @@ module.exports = AtomDiary =
     #
     # getCreate monthDir
     #
-    dirs = cal.getCreateDirectories(atom.config.get('atom-diary.baseDir'), now)
-    monthDir = dirs[1]
+    # dirs = cal.getCreateDirectories(atom.config.get('atom-diary.baseDir'), now)
+    # monthDir = dirs[1]
 
     #
     # determine month file and other key information

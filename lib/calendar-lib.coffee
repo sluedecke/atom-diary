@@ -87,11 +87,11 @@ module.exports.createPrintableDiary = createPrintableDiary = (baseDir, prefix, m
 
 # returns absolutized and existing directories for
 # baseDir and the monthDir for the given now
-module.exports.getCreateDirectories = getCreateDirectories = (baseDir, now) ->
-  myDir = absolutize(baseDir)
-  monthDir = myDir + path.sep + now.format('YYYY')
-  mkdirp.sync(monthDir)
-  [myDir, monthDir]
+# module.exports.getCreateDirectories = getCreateDirectories = (baseDir, now) ->
+#   myDir = absolutize(baseDir)
+#   monthDir = myDir + path.sep + now.format('YYYY')
+#   mkdirp.sync(monthDir)
+#   [myDir, monthDir]
 
 module.exports.getMonthFileName = getMonthFileName = (baseDir, prefix, year, month, markup) ->
   absolutize(baseDir) +
