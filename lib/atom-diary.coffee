@@ -20,7 +20,7 @@ module.exports = AtomDiary =
       type: 'string'
       default: 'Diary'
     filePrefix:
-      title: 'Prefix of diary files. Translates to "prefix-2015-11.adoc" for Asciidoc markup'
+      title: 'Prefix of diary files. Translates to "prefix-2015-11.adoc" for AsciiDoc markup'
       type: 'string'
       default: 'diary'
     diaryLocale:
@@ -32,8 +32,8 @@ module.exports = AtomDiary =
       title: 'Markup language to be used for diary files'
       description: 'Determines what format your diary files are created in. Please note that changing this value does not convert existing files and you might end up with a mix of markup styles'
       type: 'string'
-      default: 'Asciidoc'
-      enum: ['Asciidoc', 'Markdown']
+      default: 'AsciiDoc'
+      enum: ['AsciiDoc', 'Markdown']
 
   activate: (state) ->
     @myCalendar = new CalendarView(this)
@@ -92,7 +92,7 @@ module.exports = AtomDiary =
 
 
   createAndOpenPrintableDiary: ->
-    if (atom.config.get('atom-diary.markupLanguage') == 'Asciidoc')
+    if (atom.config.get('atom-diary.markupLanguage') == 'AsciiDoc')
       @createPrintableDiary()
       @openPrintableDiary()
     else

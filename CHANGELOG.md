@@ -5,7 +5,7 @@
 
 ## 1.0.1 - First one-for-all printable diary
 * only update calendar when it is visible (toggling visibility updates anyways)
-* Generate summary files per year for Asciidoc
+* Generate summary files per year for AsciiDoc
 * Added "New (now)" and "Print all" as action items to both the menu and the calendar screen
 
 ## 1.0.0 - The Release
@@ -38,4 +38,4 @@
 * Added some more descriptive text to README
 
 ## 0.1.0 - First Release
-* Basic version which can produce Asciidoc
+* Basic version which can produce AsciiDoc

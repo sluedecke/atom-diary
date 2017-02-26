@@ -105,7 +105,7 @@ module.exports.absolutize = absolutize = (directory) ->
   baseDir
 
 module.exports.markups = markups = {
-  'Asciidoc' : {
+  'AsciiDoc' : {
     'ext': 'adoc'
     'regex': new RegExp("== ([0-9]+)", 'g')
     'regexStart': '== '
