@@ -3,7 +3,7 @@ fs = require 'fs'
 os = require 'os'
 path = require 'path'
 moment = require 'moment'
-mkdirp = require 'mkdirp'
+# mkdirp = require 'mkdirp'
 
 String.prototype.format = ->
   args = arguments
@@ -87,11 +87,11 @@ module.exports.createPrintableDiary = createPrintableDiary = (baseDir, prefix, m
 
 # returns absolutized and existing directories for
 # baseDir and the monthDir for the given now
-module.exports.getCreateDirectories = getCreateDirectories = (baseDir, now) ->
-  myDir = absolutize(baseDir)
-  monthDir = myDir + path.sep + now.format('YYYY')
-  mkdirp.sync(monthDir)
-  [myDir, monthDir]
+# module.exports.getCreateDirectories = getCreateDirectories = (baseDir, now) ->
+#   myDir = absolutize(baseDir)
+#   monthDir = myDir + path.sep + now.format('YYYY')
+#   mkdirp.sync(monthDir)
+#   [myDir, monthDir]
 
 module.exports.getMonthFileName = getMonthFileName = (baseDir, prefix, year, month, markup) ->
   absolutize(baseDir) +
@@ -105,7 +105,7 @@ module.exports.absolutize = absolutize = (directory) ->
   baseDir
 
 module.exports.markups = markups = {
-  'Asciidoc' : {
+  'AsciiDoc' : {
     'ext': 'adoc'
     'regex': new RegExp("== ([0-9]+)", 'g')
     'regexStart': '== '
