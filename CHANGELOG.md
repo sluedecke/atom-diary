@@ -1,5 +1,9 @@
-## x.x.x - Improved Usability
+## 1.2.0 - Improved Usability
 * Added context menu to calendar view for easy creation of entries for now and the selected day
+* All keyboard shortcuts now start with Alt-Shift-d which is hopefully unique
+* User can open the diary folder as an atom project in a separate window
+* Some code cleanup to let Atom do work automatically
+* Fixed spelling and grammar errors
 
 ## 1.1.0 - Relicensed
 * atom-diary is now under the MIT license (switched from Apache Public License 2.0)
