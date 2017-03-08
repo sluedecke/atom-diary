@@ -47,11 +47,12 @@ module.exports = AtomDiary =
     @subscriptions.add atom.commands.add 'atom-workspace', 'atom-diary:createAndOpenPrintableDiary':  => @createAndOpenPrintableDiary()
 
     atom.contextMenu.add('.cal-isday': [{
-      'label': 'New Entry here'
-      'created': (event) ->
-        AtomDiary.contextDay = event.path[0].attributes.year.value + "-" + event.path[0].attributes.month.value + "-" + event.path[0].attributes.day.value
-        @label = "Create entry for " + AtomDiary.contextDay
-      'command': 'atom-diary:addEntryHere'
+        'label': 'New Entry here'
+        'created': (event) ->
+            AtomDiary.contextDay = event.path[0].attributes.year.value + "-" + event.path[0].attributes.month.value + "-" + event.path[0].attributes.day.value
+            @label = "Create entry for " + AtomDiary.contextDay
+        'command': 'atom-diary:addEntryHere'
+        'shouldDisplay': moment(AtomDiary.contextDay, "YYYY-MM-DD") == moment()
       }
       {
         'label': 'New Entry now'
@@ -160,6 +161,7 @@ module.exports = AtomDiary =
 
   addEntryHere: ->
     console.log("context day is " + AtomDiary.contextDay)
+    # FIXME if now = today, then add proper time of day
     now = moment(AtomDiary.contextDay, "YYYY-MM-DD")
     if atom.config.get('atom-diary.diaryLocale') != ''
       now.locale(atom.config.get('atom-diary.diaryLocale'))

@@ -8,5 +8,7 @@
 # For more detailed documentation see
 # https://atom.io/docs/latest/behind-atom-keymaps-in-depth
 'atom-workspace':
-  'ctrl-alt-e': 'atom-diary:addEntry'
-  'ctrl-shift-e': 'atom-diary:toggleCalendar'
+  'alt-shift-d a': 'atom-diary:addEntry'
+  'alt-shift-d c': 'atom-diary:toggleCalendar'
+  'alt-shift-d d': 'atom-diary:showProject'
+  'alt-shift-d p': 'atom-diary:createAndOpenPrintableDiary'

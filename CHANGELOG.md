@@ -1,3 +1,6 @@
+## x.x.x - Improved Usability
+* Added context menu to calendar view for easy creation of entries for now and the selected day
+
 ## 1.1.0 - Relicensed
 * atom-diary is now under the MIT license (switched from Apache Public License 2.0)
 * Bugfix: weekday name was formated same as TODAY although it shouldn't

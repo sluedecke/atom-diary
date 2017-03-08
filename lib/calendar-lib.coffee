@@ -69,11 +69,11 @@ module.exports.createPrintableDiary = createPrintableDiary = (baseDir, prefix, m
       includes = ""
       for m in monthFiles
         if m.match(matcher)
-          includes = includes + markups[markup].includeTemplate.format(m)
+          includes = includes + markups[markup].includeMonthTemplate.format(m)
       summary = markups[markup].summaryTemplate.format(year, includes)
       console.log "writing to #{summaryFileName}"
       fs.writeFileSync(summaryFileName, summary)
-      yearIncludes = yearIncludes + markups[markup].includeTemplate.format(summaryFileNameBaseName)
+      yearIncludes = yearIncludes + markups[markup].includeYearTemplate.format(year, summaryFileNameBaseName)
 
   # unlink diary summary file
   diarySummaryFile = "#{baseDir}#{path.sep}#{prefix}-all.#{markups[markup].ext}"
@@ -135,9 +135,15 @@ module.exports.markups = markups = {
       {1}
       :leveloffset: -1
       """
-    'includeTemplate':
+    'includeMonthTemplate':
       """
       include::{0}[]
+
+      """
+    'includeYearTemplate':
+      """
+      :imagesdir: {0}
+      include::{1}[]
 
       """
     },
