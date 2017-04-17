@@ -154,9 +154,9 @@ module.exports = AtomDiary =
 
   showProject: ->
     now = @getMoment()
-    dirs = cal.getCreateDirectories(atom.config.get('atom-diary.baseDir'), now)
-    console.log('opening path ' + dirs[0])
-    atom.open({pathsToOpen: [dirs[0]], newWindow: false})
+    dir = cal.absolutize(atom.config.get('atom-diary.baseDir'))
+    console.log('opening path ' + dir)
+    atom.open({pathsToOpen: [dir], newWindow: false})
 
 
   addEntryHere: ->
@@ -177,12 +177,6 @@ module.exports = AtomDiary =
     # setup now and markup type
     #
     myMarkup = atom.config.get('atom-diary.markupLanguage')
-
-    #
-    # getCreate monthDir
-    #
-    # dirs = cal.getCreateDirectories(atom.config.get('atom-diary.baseDir'), now)
-    # monthDir = dirs[1]
 
     #
     # determine month file and other key information

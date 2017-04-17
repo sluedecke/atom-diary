@@ -1,3 +1,7 @@
+## 1.2.1 - Fixing a bug
+* Replaced last, overlooked use of cal.getCreateDirectories with calling the
+  proper routine, fixing [Issue #6](https://github.com/sluedecke/atom-diary/issues/6)
+
 ## 1.2.0 - Improved Usability
 * Added context menu to calendar view for easy creation of entries for now and the selected day
 * All keyboard shortcuts now start with Alt-Shift-d which is hopefully unique
