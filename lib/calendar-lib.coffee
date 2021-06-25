@@ -3,7 +3,7 @@ fs = require 'fs'
 os = require 'os'
 path = require 'path'
 moment = require 'moment'
-# mkdirp = require 'mkdirp'
+mkdirp = require 'mkdirp'
 
 String.prototype.format = ->
   args = arguments
@@ -52,6 +52,7 @@ module.exports.createPrintableDiary = createPrintableDiary = (baseDir, prefix, m
   if !markups[markup]['summaryTemplate']
     throw new Error("Unsupported markup: #{markup}")
   baseDir = absolutize(baseDir)
+  mkdirp(baseDir)
   files = fs.readdirSync(baseDir)
   yearIncludes = ""
   for year in files
