@@ -1,6 +1,7 @@
-# atom-diary package
+> [!WARNING]
+> Archived since it is no longer maintained and atom has been sunset end of 2022 anyways.
 
-NOTE: Archived since it is no longer maintained and atom has been sunset end of 2022 anyways.
+# atom-diary package
 
 Keep a diary in Atom using markup like [AsciiDoc](http://asciidoc.org/) or [Markdown](https://daringfireball.net/projects/markdown/).
 
