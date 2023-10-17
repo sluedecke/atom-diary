@@ -1,5 +1,7 @@
 # atom-diary package
 
+NOTE: Archived since it is no longer maintained and atom has been sunset end of 2022 anyways.
+
 Keep a diary in Atom using markup like [AsciiDoc](http://asciidoc.org/) or [Markdown](https://daringfireball.net/projects/markdown/).
 
 This package allows you to keep a diary in atom - how great is that?  It has a nice three month calendar view for easy navigation to past entries and organizes your diary in monthly files.
